@@ -17,7 +17,7 @@ namespace API.Extensions
         opt.UseSqlite(config.GetConnectionString("DefautlConnection"));
         });
         
-       services.AddCors();
+    //    services.AddCors();
        services.AddScoped<ITokenService,TokenService>();
 
        return services;

@@ -22,10 +22,11 @@ namespace API.Controllers
             this._context = context;
         }
 
+
 [AllowAnonymous]
 [HttpGet]
 public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
-{
+{   
     var users = await _context.Users.ToListAsync();
 
     return users;
