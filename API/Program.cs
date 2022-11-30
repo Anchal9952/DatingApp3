@@ -2,6 +2,7 @@ using System.Text;
 using API.Data;
 using API.Extensions;
 using API.Interface;
+using API.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -43,7 +44,8 @@ builder.Services.AddIdentityServices(builder.Configuration);
 // });
 
 var app = builder.Build();
-
+// if(builder.Environment.IsDevelopment())
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
