@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UrlSerializer } from '@angular/router';
+import { Router, UrlSerializer } from '@angular/router';
+import { Toast, ToastrService } from 'ngx-toastr';
 import { Observable, of } from 'rxjs';
 import { User } from '../_models/user';
 import { AccountService } from '../_services/account.service';
@@ -15,34 +16,24 @@ model:any = {}
 currentUser$:Observable<User | null> = of(null)
 
 
-  constructor(public accountService:AccountService) { }
+  constructor(public accountService:AccountService, private router: Router,
+   private toastr: ToastrService ) { }
 
   ngOnInit(): void {
     this.currentUser$ = this.accountService.currentUsers$;
   }
 
-  // getCurrentUser(){
-  //   this.accountService.currentUsers$.subscribe({
-  //     next: user => this.loggedIn = !!user,
-  //     error: error => console.log(error)
-      
-  //   })
-  // }
 
   login() {
     this.accountService.login(this.model).subscribe({
-      next: response => {
-        console.log(response);
-        // this.loggedIn=true;
-      },
-      error: error =>console.log(error)
-    })
-    console.log(this.model);
+      next: _ => this.router.navigateByUrl('/members'),      
+      error: error =>this.toastr.error(error.error)
+    })    
   }
 
   logout() {
     this.accountService.logout();
-    // this.loggedIn=false;
+    this.router.navigateByUrl('/')
     }
     
 }
