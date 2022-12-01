@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    [Authorize]
+    // [Authorize]
     public class UsersController : BaseApiController
     {
         private readonly IUserRepository _userRepository;
@@ -26,7 +26,7 @@ namespace API.Controllers
 [HttpGet]
 public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
 {   
-    var users =await _userRepository.GetUserAsync();
+    var users =await _userRepository.GetMemberAsync();
 
    return Ok(users);
 }
