@@ -9,6 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
+            "requireExactSource": false,//Anchal
             // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/API/bin/Debug/net7.0/API.dll",
             "args": [],
