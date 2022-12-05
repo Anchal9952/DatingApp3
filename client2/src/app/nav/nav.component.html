@@ -24,7 +24,8 @@
         </ul>
         
         <div class="dropdown" style="color:white" *ngIf="accountService.currentUsers$ | async as user" dropdown>
-          <a class="dropdown-toggle text-align text-decoration-none" style="color:white" dropdownToggle>Welcome {{user.userName}}</a> 
+         <img src="{{user.photoUrl || './assets/user.png'}}" alt="user photo" >
+          <a class="dropdown-toggle text-align text-decoration-none ms-2" style="color:white" dropdownToggle>Welcome {{user.userName}}</a> 
         <div class="dropdown-menu mt-3"  *dropdownMenu>
         <a class="dropdown-item" routerLink="/member/edit" >Edit Profile</a>
         <a class="dropdown-item" (click)="logout()" >Logout</a>
