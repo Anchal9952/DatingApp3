@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using API.DTOs;
 using System.Text;
 using API.Interface;
+using AutoMapper;
 
 namespace API.Controllers
 {     
@@ -21,10 +22,13 @@ namespace API.Controllers
 
         private readonly ITokenService _tokenService;
 
-        public AccountController(DataContext context, ITokenService tokenService)
+        private readonly IMapper _mapper;
+
+        public AccountController(DataContext context, ITokenService tokenService,IMapper mapper)
          {
             this._context = context;
             this._tokenService = tokenService;
+            _mapper = mapper;
         }
        
        [HttpPost("register")]  //api/register
@@ -32,14 +36,15 @@ namespace API.Controllers
        {
         var sd = await UserExist(registerDto.Username);
         if (await UserExist(registerDto.Username)) return BadRequest("UserName is taken");
+
+       var user = _mapper.Map<AppUser>(registerDto);
+
          using var hmac = new HMACSHA512();
         
-        var user = new AppUser
-        {
-            UserName = registerDto.Username,
-            PasswordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(registerDto.Password)),
-            PasswordSalt = hmac.Key
-        };
+         user.UserName = registerDto.Username;
+            user.PasswordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(registerDto.Password));
+            user.PasswordSalt = hmac.Key;
+      
 
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
@@ -48,7 +53,8 @@ namespace API.Controllers
         return new UserDto
          {
             UserName = user.UserName,
-            Token = _tokenService.CreateToken(user)
+            Token = _tokenService.CreateToken(user),
+            KnownAs =user.KnownAs
          };
        }
 
@@ -75,7 +81,8 @@ namespace API.Controllers
          {
             UserName = user.UserName,
             Token = _tokenService.CreateToken(user),
-            PhotoUrl = user.Photos.FirstOrDefault(x =>x.IsMain).Url
+            PhotoUrl = user.Photos.FirstOrDefault(x =>x.IsMain).Url,
+            KnownAs = user.KnownAs
          };
          
        }
