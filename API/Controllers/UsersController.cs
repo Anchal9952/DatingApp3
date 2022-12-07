@@ -3,6 +3,7 @@ using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.Extensions;
+using API.Helpers;
 using API.Interface;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -28,9 +29,21 @@ namespace API.Controllers
 
         // [AllowAnonymous]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
+        public async Task<ActionResult<PagedList<MemberDto>>> GetUsers([FromQuery]UserParams userParams)
         {
-            var users = await _userRepository.GetMemberAsync();
+         var currentUser =await _userRepository.GetUserBynameAsync(User.GetUsername());
+         userParams.CurrentUsername = currentUser.UserName;
+
+         if(string.IsNullOrEmpty(userParams.Gender))
+         {
+            userParams.Gender  =currentUser.Gender== "male"?"female":"male";
+         }
+
+            var users = await _userRepository.GetMemberAsync(userParams);
+            // var abc = new PagedList<MemberDto>();
+
+            Response.AddPaginationHeader(new PaginationHeader(users.CurrentPage,users.PageSize,
+            users.TotalCount,users.TotalPages));
 
             return Ok(users);
         }
@@ -110,7 +123,7 @@ namespace API.Controllers
         [HttpDelete("delete-photo/{photoId}")]
         public async Task<ActionResult> DeletePhoto(int photoId)
         {
-            var user =await _userRepository.GetUserBynameAsync(User.GetUsername());
+            var user = await _userRepository.GetUserBynameAsync(User.GetUsername());
 
             var photo = user.Photos.FirstOrDefault(x =>x.ID ==photoId);
 
