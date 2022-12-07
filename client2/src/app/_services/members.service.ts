@@ -93,6 +93,17 @@ deletePhoto(photoId: number){
   return this.http.delete(this.baseurl + 'users/delete-photo/'+ photoId);
 }
 
+addLike(username: string ){
+  return this.http.post(this.baseurl + 'likes/'+ username,{});
+}
+
+getLikes(predicate: string,pageNumber: number,pageSize: number){
+let params = this.getPaginationheader(pageNumber,pageSize);
+
+params = params.append('predicate', predicate);
+
+  return this.getPaginationResult<Member[]>(this.baseurl + 'likes',params);
+}
 
 private getPaginationResult<T>(url:string, params: HttpParams) {
   const paginationResult: PaginationResult<T> = new PaginationResult<T>;
