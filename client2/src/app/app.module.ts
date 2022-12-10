@@ -30,6 +30,16 @@ import { PhotoEditorComponent } from './members/photo-editor/photo-editor.compon
 import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { DatePickerComponent } from './_forms/date-picker/date-picker.component';
 import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { UserManagementComponent } from './admin/user-management/user-management.component';
+import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
+import { HasRoleDirective } from './_directives/has-role.directive';
+// import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+// import { HasRoleDirective } from './_directives/has-role.directive';
+// import { UserMamagementComponent } from './admin/user-mamagement/user-mamagement.component';
+// import { PhotoMamagementComponent } from './admin/photo-mamagement/photo-mamagement.component';
+// import { UserManangementComponent } from './admin/user-manangement/user-manangement.component';
+// import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
 
 
 @NgModule({
@@ -42,7 +52,9 @@ import { MemberMessagesComponent } from './members/member-messages/member-messag
     MemberDetailComponent,
     ListsComponent,
     MessagesComponent,    
-    TestErrorComponent, NotFoundComponent, ServerErrorComponent, TestsComponent, MemberCardComponent, MemberEditComponent, PhotoEditorComponent, TextInputComponent, DatePickerComponent, MemberMessagesComponent
+    TestErrorComponent, NotFoundComponent, ServerErrorComponent, TestsComponent, MemberCardComponent, MemberEditComponent, PhotoEditorComponent, TextInputComponent, DatePickerComponent, MemberMessagesComponent, AdminPanelComponent, UserManagementComponent, PhotoManagementComponent,
+    HasRoleDirective
+    // , AdminPanelComponent, HasRoleDirective, UserMamagementComponent, PhotoMamagementComponent, UserManangementComponent, PhotoManagementComponent
   ],
   imports: [
     BrowserModule,
@@ -51,11 +63,6 @@ import { MemberMessagesComponent } from './members/member-messages/member-messag
     FormsModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    // BsDropdownModule.forRoot(),
-    // ToastrModule.forRoot({
-    //   positionClass: 'toast-bottom-right'
-    // }),
-    // TabsModule.forRoot(),
     SharedModule
   ],
   providers: [
