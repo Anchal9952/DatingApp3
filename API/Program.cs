@@ -1,9 +1,11 @@
 using System.Text;
 using API.Data;
+using API.Entities;
 using API.Extensions;
 using API.Interface;
 using API.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -31,6 +33,7 @@ options.AddDefaultPolicy(
 // builder.Services.AddScoped<ITokenService,TokenService>();
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
+ builder.Services.AddMvcCore();
 // builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 // .AddJwtBearer(options =>
 // {
@@ -66,8 +69,10 @@ var services = scope.ServiceProvider;
 try
 {
 var context = services.GetRequiredService<DataContext>();
+// var userManager = services.GetRequiredService<UserManager<AppUser>>();
+// var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
 await context.Database.MigrateAsync();
-await Seed.SeedUsers(context);
+// await Seed.SeedUsers(userManager,roleManager);
 }
 catch(Exception ex)
 {
