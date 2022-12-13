@@ -35,6 +35,7 @@ import { UserManagementComponent } from './admin/user-management/user-management
 import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
 import { HasRoleDirective } from './_directives/has-role.directive';
 import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
+import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.component';
 // import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 // import { HasRoleDirective } from './_directives/has-role.directive';
 // import { UserMamagementComponent } from './admin/user-mamagement/user-mamagement.component';
@@ -55,7 +56,8 @@ import { RolesModalComponent } from './modals/roles-modal/roles-modal.component'
     MessagesComponent,    
     TestErrorComponent, NotFoundComponent, ServerErrorComponent, TestsComponent, MemberCardComponent, MemberEditComponent, PhotoEditorComponent, TextInputComponent, DatePickerComponent, MemberMessagesComponent, AdminPanelComponent, UserManagementComponent, PhotoManagementComponent,
     HasRoleDirective,
-    RolesModalComponent
+    RolesModalComponent,
+    ConfirmDialogComponent
     // , AdminPanelComponent, HasRoleDirective, UserMamagementComponent, PhotoMamagementComponent, UserManangementComponent, PhotoManagementComponent
   ],
   imports: [
